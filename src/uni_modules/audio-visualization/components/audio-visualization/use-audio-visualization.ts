@@ -1,5 +1,5 @@
 export interface UseAudioVisualizationProps {
-	context: AudioContext;
+	context: UniApp.InnerAudioContext;
 }
 
 function useAudioVisualization(props: UseAudioVisualizationProps) {
