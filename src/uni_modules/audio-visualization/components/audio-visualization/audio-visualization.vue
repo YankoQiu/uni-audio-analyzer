@@ -1,7 +1,9 @@
 <script setup lang="ts">
-interface AudioVisualizationProps {
-	context: AudioContext;
-}
+import type { UseAudioVisualizationProps } from "./use-audio-visualization";
+
+import { defineProps } from "vue";
+
+interface AudioVisualizationProps extends UseAudioVisualizationProps {}
 
 const props = defineProps<AudioVisualizationProps>();
 </script>
