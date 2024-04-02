@@ -1,3 +1,0 @@
-function useAudioAnalyser() {}
-
-export { useAudioAnalyser };

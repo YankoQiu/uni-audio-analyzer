@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { UseAudioVisualizationProps } from "./use-audio-visualization";
+import type { UseAudioAnalyserProps } from "./use-audio-analyser";
 
 import { ref, defineProps, onMounted } from "vue";
-import { useAudioVisualization } from "./use-audio-visualization";
+import { useAudioAnalyser } from "./use-audio-analyser";
 
-interface AudioVisualizationProps extends UseAudioVisualizationProps {}
+interface AudioAnalyserProps extends UseAudioAnalyserProps {}
 
 const audioCanvasRef = ref<HTMLDivElement | null>(null);
-const props = defineProps<AudioVisualizationProps>();
-const { getCanvasElement } = useAudioVisualization(props);
+const props = defineProps<AudioAnalyserProps>();
+const { getCanvasElement } = useAudioAnalyser(props);
 
 onMounted(() => {
     const canvas = getCanvasElement();
