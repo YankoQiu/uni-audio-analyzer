@@ -1,0 +1,3 @@
+function useAudioAnalyser() {}
+
+export { useAudioAnalyser };
