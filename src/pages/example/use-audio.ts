@@ -3,20 +3,20 @@ interface UseAudioProps {
 }
 
 function useAudio(props: UseAudioProps) {
-    const innerAudioContext = uni.createInnerAudioContext();
+    const audio = new Audio(props.url);
 
-    function onPlay() {
-        innerAudioContext.onPlay(() => {});
+    function onAudioPlay() {
+        audio.play();
     }
 
-    function onPause() {
-        innerAudioContext.onPause(() => {});
+    function onAudioPause() {
+        audio.pause();
     }
 
     return {
-        context: innerAudioContext,
-        onPlay,
-        onPause,
+        audio,
+        onAudioPlay,
+        onAudioPause,
     };
 }
 

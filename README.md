@@ -1,2 +1,2 @@
-# uni-audio-visualization
-This is a uni-app audio visualization component
+# uni-audio-analyzer
+This is a uni-app audio analyzer component
