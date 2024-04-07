@@ -1,7 +1,11 @@
-import { ref } from "vue";
 
 export interface UseAudioAnalyserProps {
     audio: HTMLAudioElement;
+}
+
+interface HTMLAudioElementExtends extends HTMLAudioElement {
+    play: typeof HTMLMediaElement.prototype.play;
+    originPlay: typeof HTMLMediaElement.prototype.play;
 }
 
 type AudioContextConstructable = {
@@ -12,33 +16,32 @@ type AudioContextConstructable = {
 function useAudioAnalyser(props: UseAudioAnalyserProps) {
     // @ts-ignore
     const AudioContext: AudioContextConstructable = window.AudioContext || window.webkitAudioContext;
+
+    const audio = props.audio as HTMLAudioElementExtends;
     const context: AudioContext = new AudioContext();
 
     const analyser: AnalyserNode = context.createAnalyser();
-    const analyzeData = ref<number[]>([]);
-
     analyser.fftSize = 512;
 
-    const source: MediaElementAudioSourceNode = context.createMediaElementSource(props.audio);
+    const analyzeData = new Uint8Array(analyser.frequencyBinCount);
+
+    const source: MediaElementAudioSourceNode = context.createMediaElementSource(audio);
 
     source.connect(analyser);
     analyser.connect(context.destination);
 
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
+    // 保存原始的 `.play` 方法
+    audio.originPlay = audio.play;
+    audio.play = () => context.resume().then(() => audio.originPlay());
 
-    function renderFrame() {
-        requestAnimationFrame(renderFrame);
-
-        // 更新频率数据
-        analyser.getByteFrequencyData(dataArray);
+    function getAnalyzeData(): Uint8Array {
+        analyser.getByteFrequencyData(analyzeData);
+        return analyzeData;
     }
 
-    renderFrame();
-
     return {
-        analyzeData
+        getAnalyzeData
     };
 }
 
-export { useAudioAnalyser };
+export {useAudioAnalyser};

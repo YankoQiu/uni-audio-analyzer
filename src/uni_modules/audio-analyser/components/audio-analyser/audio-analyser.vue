@@ -11,12 +11,17 @@ interface AudioAnalyserProps {
 
 const audioCanvasRef = ref<HTMLDivElement | null>(null);
 const props = defineProps<AudioAnalyserProps>();
-const { analyzeData } = useAudioAnalyser(props);
-const { getCanvasElement } = useAudioCanvas({ ...props, analyzeData });
+const { getAnalyzeData } = useAudioAnalyser(props);
+const { getCanvasElement } = useAudioCanvas({ ...props });
 
 onMounted(() => {
     const canvas = getCanvasElement();
     audioCanvasRef.value?.appendChild(canvas);
+
+    setInterval(() => {
+        const analyze = getAnalyzeData();
+        console.log(analyze);
+    }, 3000);
 });
 </script>
 

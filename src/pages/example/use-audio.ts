@@ -5,6 +5,8 @@ interface UseAudioProps {
 function useAudio(props: UseAudioProps) {
     const audio = new Audio(props.url);
 
+    audio.crossOrigin = "anonymous";
+
     function onAudioPlay() {
         audio.play();
     }

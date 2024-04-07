@@ -14,6 +14,7 @@ const { audio, onAudioPlay, onAudioPause } = useAudio({ url: audioURI });
             :height="200"
             :audio="audio"
         ></AudioAnalyser>
+
         <button @click="onAudioPlay">播放</button>
         <button @click="onAudioPause">暂停</button>
 	</div>
