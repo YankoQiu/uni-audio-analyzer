@@ -8,7 +8,12 @@ function useAudioCanvas(props: UseAudioCanvasProps) {
         return document.createElement("canvas");
     }
 
+    function draw(data: Uint8Array) {
+        console.log(data);
+    }
+
     return {
+        draw,
         getCanvasElement
     };
 }

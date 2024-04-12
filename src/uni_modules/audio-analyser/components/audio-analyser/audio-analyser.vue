@@ -12,16 +12,23 @@ interface AudioAnalyserProps {
 const audioCanvasRef = ref<HTMLDivElement | null>(null);
 const props = defineProps<AudioAnalyserProps>();
 const { getAnalyzeData } = useAudioAnalyser(props);
-const { getCanvasElement } = useAudioCanvas({ ...props });
+const { draw, getCanvasElement } = useAudioCanvas({ ...props });
 
 onMounted(() => {
     const canvas = getCanvasElement();
     audioCanvasRef.value?.appendChild(canvas);
 
-    setInterval(() => {
+    const renderer = () => {
+        // 获取分析数据
         const analyze = getAnalyzeData();
-        console.log(analyze);
-    }, 3000);
+
+        // 绘画音频频率
+        draw(analyze);
+
+        requestAnimationFrame(renderer);
+    };
+
+    renderer();
 });
 </script>
 
