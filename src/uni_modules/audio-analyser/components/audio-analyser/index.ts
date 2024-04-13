@@ -4,10 +4,10 @@ import type { UseAudioAnalyserProps } from "./use-audio-analyser";
 
 import AudioAnalyser from "./audio-analyser.vue";
 
-const props: DefineProps<string, any> = {
+const props = {
     width: {
         type: String,
-        default: "100%"
+        default: 200
     }
 };
 
