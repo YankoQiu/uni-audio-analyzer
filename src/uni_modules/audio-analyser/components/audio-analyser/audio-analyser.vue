@@ -35,6 +35,19 @@ onMounted(() => {
 });
 </script>
 
+
 <template>
-	<div ref="audioCanvasRef" :style="{ width: props.width + 'rpx', height: props.height + 'rpx' }"></div>
+	<div
+        class="uni-audio-analyser"
+        ref="audioCanvasRef"
+        :style="{ width: props.width + 'rpx', height: props.height + 'rpx' }"
+    ></div>
 </template>
+
+
+<style scoped>
+.uni-audio-analyser > :deep(*) {
+    max-width: 100%;
+    max-height: 100%;
+}
+</style>

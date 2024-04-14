@@ -12,7 +12,7 @@ const { audio, onAudioPlay, onAudioPause } = useAudio({ url: audioURI });
         <div class="example-container">
             <AudioAnalyser
                 class="audio-analyser"
-                :width="200"
+                :width="400"
                 :height="200"
                 :audio="audio"
                 theme="line"
@@ -56,9 +56,20 @@ const { audio, onAudioPlay, onAudioPause } = useAudio({ url: audioURI });
     align-items: center;
     padding: 16rpx;
     cursor: pointer;
+    color: #333333;
+    transition: all 200ms;
 }
 
 .audio-control-item:nth-child(n + 2) {
     border-left: 1px solid #333333;
+}
+
+.audio-control-item:hover {
+    background-color: #efefef;
+    color: #000000;
+}
+
+.audio-control-item:active {
+    font-size: 0.95em;
 }
 </style>
