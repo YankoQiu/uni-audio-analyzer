@@ -7,7 +7,6 @@ interface AudioAnalyserProps {
     audio: HTMLAudioElement;
     width: number;
     height: number;
-    // fftSize要求是2的幂次方，如 256 、 512 等。数字越大越精细，但会同时会影响性能。
     fftSize?: number;
     theme: "line" | "particle" | "custom";
     customDraw?: (ctx: CanvasRenderingContext2D, analyze: Uint8Array) => void;
