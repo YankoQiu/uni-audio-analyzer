@@ -9,7 +9,7 @@ interface AudioAnalyserProps {
     audio: HTMLAudioElement;
     width: number;
     height: number;
-    theme: "line";
+    theme?: "line";
     fftSize?: number;
     isCustom?: boolean;
     customTheme?: CustomTheme;

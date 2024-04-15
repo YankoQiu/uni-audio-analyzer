@@ -15,7 +15,6 @@ const { audio, onAudioPlay, onAudioPause } = useAudio({ url: audioURI });
                 :width="400"
                 :height="200"
                 :audio="audio"
-                theme="line"
             ></AudioAnalyser>
 
             <div class="audio-control">
