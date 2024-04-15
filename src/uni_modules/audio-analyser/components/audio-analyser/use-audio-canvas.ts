@@ -1,20 +1,14 @@
 import { lineTheme } from "./themes/line-theme";
 
-// interface UseBaseAudioCanvasProps {
-//     width: number;
-//     height: number;
-//     theme: "line";
-// }
+export type CustomTheme = (ctx: CanvasRenderingContext2D, analyze: Uint8Array) => void;
 
-interface UseCustomAudioCanvasProps {
+export interface UseCustomAudioCanvasProps {
     width: number;
     height: number;
     theme?: "line";
     isCustom?: boolean;
-    customTheme?: (ctx: CanvasRenderingContext2D, analyze: Uint8Array) => void;
+    customTheme?: CustomTheme;
 }
-
-// export type UseAudioCanvasProps = UseBaseAudioCanvasProps | UseCustomAudioCanvasProps;
 
 function useAudioCanvas(props: UseCustomAudioCanvasProps) {
     const canvas = document.createElement("canvas");
@@ -24,13 +18,18 @@ function useAudioCanvas(props: UseCustomAudioCanvasProps) {
     canvas.height = props.height;
 
     const update = (() => {
-        if (props.isCustom) return props.customTheme as (ctx: CanvasRenderingContext2D, analyze: Uint8Array) => void;
-
-        switch (props.theme) {
-            case "line": return lineTheme;
+        if (props.isCustom) {
+            return props.customTheme as CustomTheme;
         }
 
-        return () => {};
+        switch (props.theme) {
+            case "line": {
+                return lineTheme;
+            }
+            default: {
+                return () => {};
+            }
+        }
     })();
 
     /**

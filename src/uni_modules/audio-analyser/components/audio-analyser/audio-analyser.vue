@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { CustomTheme } from "./use-audio-canvas";
+
 import { ref, onMounted, withDefaults } from "vue";
 import { useAudioCanvas } from "./use-audio-canvas";
 import { useAudioAnalyser } from "./use-audio-analyser";
@@ -10,7 +12,7 @@ interface AudioAnalyserProps {
     theme: "line";
     fftSize?: number;
     isCustom?: boolean;
-    customTheme?: (ctx: CanvasRenderingContext2D, analyze: Uint8Array) => void;
+    customTheme?: CustomTheme;
 }
 
 const audioCanvasRef = ref<HTMLDivElement | null>(null);
