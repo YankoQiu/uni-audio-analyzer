@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, withDefaults } from "vue";
 import { useAudioCanvas } from "./use-audio-canvas";
 import { useAudioAnalyser } from "./use-audio-analyser";
 
@@ -7,13 +7,18 @@ interface AudioAnalyserProps {
     audio: HTMLAudioElement;
     width: number;
     height: number;
+    theme: "line";
     fftSize?: number;
-    theme: "line" | "particle" | "custom";
-    customDraw?: (ctx: CanvasRenderingContext2D, analyze: Uint8Array) => void;
+    isCustom?: boolean;
+    customTheme?: (ctx: CanvasRenderingContext2D, analyze: Uint8Array) => void;
 }
 
 const audioCanvasRef = ref<HTMLDivElement | null>(null);
-const props = defineProps<AudioAnalyserProps>();
+const props = withDefaults(defineProps<AudioAnalyserProps>(), {
+    theme: "line",
+    fftSize: 512,
+    isCustom: false
+});
 const { getAnalyzeData } = useAudioAnalyser(props);
 const { canvas, draw } = useAudioCanvas(props);
 

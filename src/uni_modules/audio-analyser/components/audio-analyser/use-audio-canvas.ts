@@ -1,22 +1,22 @@
 import { lineTheme } from "./themes/line-theme";
-import { particleTheme } from "./themes/particle-theme";
 
-interface UseBaseAudioCanvasProps {
-    width: number;
-    height: number;
-    theme: "line" | "particle";
-}
+// interface UseBaseAudioCanvasProps {
+//     width: number;
+//     height: number;
+//     theme: "line";
+// }
 
 interface UseCustomAudioCanvasProps {
     width: number;
     height: number;
-    theme: "custom";
-    customDraw: (ctx: CanvasRenderingContext2D, analyze: Uint8Array) => void;
+    theme?: "line";
+    isCustom?: boolean;
+    customTheme?: (ctx: CanvasRenderingContext2D, analyze: Uint8Array) => void;
 }
 
-export type UseAudioCanvasProps = UseBaseAudioCanvasProps | UseCustomAudioCanvasProps;
+// export type UseAudioCanvasProps = UseBaseAudioCanvasProps | UseCustomAudioCanvasProps;
 
-function useAudioCanvas(props: UseAudioCanvasProps) {
+function useAudioCanvas(props: UseCustomAudioCanvasProps) {
     const canvas = document.createElement("canvas");
     const context: CanvasRenderingContext2D = canvas.getContext("2d")!;
 
@@ -24,14 +24,13 @@ function useAudioCanvas(props: UseAudioCanvasProps) {
     canvas.height = props.height;
 
     const update = (() => {
+        if (props.isCustom) return props.customTheme as (ctx: CanvasRenderingContext2D, analyze: Uint8Array) => void;
+
         switch (props.theme) {
-            case "line":
-                return lineTheme;
-            case "particle":
-                return particleTheme;
-            case "custom":
-                return props.customDraw;
+            case "line": return lineTheme;
         }
+
+        return () => {};
     })();
 
     /**
